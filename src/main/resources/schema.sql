@@ -7,3 +7,14 @@ CREATE TABLE users
     name VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL
 );
+
+DROP TABLE IF EXISTS item;
+
+CREATE TABLE item
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(300) NOT NULL,
+    price INTEGER NOT NULL,
+    stock_quantity INTEGER NOT NULL
+);
+

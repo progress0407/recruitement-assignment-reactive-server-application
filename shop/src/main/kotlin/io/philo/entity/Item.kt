@@ -2,20 +2,18 @@ package io.philo.entity
 
 import org.springframework.data.annotation.Id
 
-class Item protected constructor(
+open class Item protected constructor(
 
     @Id
-    val id: Long? = null,
-    var name: String = "",
-    var price: Int = 0,
-    var stockQuantity: Int
+    open var id: Long? = null,
+    open var name: String = "",
+    open var price: Int = 0,
+    open var stockQuantity: Int
 ) {
 
 
-    // default constructor for using JPA
     protected constructor() : this(id = null, name = "", price = 0, stockQuantity = 0)
 
-    // Size가 존재하지 않는 경우
     constructor(
         name: String,
         price: Int,

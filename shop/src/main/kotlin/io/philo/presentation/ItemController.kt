@@ -8,6 +8,7 @@ import mu.KotlinLogging
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @RequestMapping("/items")
 @RestController
@@ -20,13 +21,13 @@ class ItemController(private val itemService: ItemService) {
      */
     @PostMapping
     @ResponseStatus(CREATED)
-    fun add(@RequestBody request: ItemCreateRequest): ResourceCreateResponse {
+    fun add(@RequestBody request: ItemCreateRequest): Mono<ResourceCreateResponse> {
 
         val (name, price, stockQuantity) = request
 
         val itemId = itemService.registerItem(name, price, stockQuantity)
 
-        return ResourceCreateResponse(itemId)
+        return itemId.map { ResourceCreateResponse(it) }
     }
 
     /**
