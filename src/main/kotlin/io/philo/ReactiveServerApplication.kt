@@ -1,15 +1,10 @@
 package io.philo
 
-import io.philo.user.entity.Users
-import io.philo.user.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.Bean
-import java.time.Duration
 
 @SpringBootApplication
 class ReactiveServerApplication {
@@ -26,6 +21,7 @@ class ReactiveServerApplication {
     }
 */
 
+/*
     @Bean
     fun demo(repository: UserRepository): CommandLineRunner {
         return CommandLineRunner { args: Array<String?>? ->
@@ -41,6 +37,7 @@ class ReactiveServerApplication {
             log.info { "list = $list" }
         }
     }
+*/
 }
 
 fun main(args: Array<String>) {

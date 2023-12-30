@@ -2,6 +2,6 @@ package io.philo.user.presentation.dto
 
 class UserCreateApiDtos
 
-data class UserCreateResponse(val id: Long)
+data class UserCreateRequest(val email: String, val name: String, val password: String)
 
-data class UserCreateRequest(val name: String)
+data class UserCreateResponse(val id: Long)
