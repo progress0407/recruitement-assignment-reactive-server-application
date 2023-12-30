@@ -13,14 +13,18 @@ spring:
 #    url: r2dbc:h2:mem:testdb                                                       # fail
 #    url: r2dbc:h2:tcp://localhost/~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE  # fail
 #    url: r2dbc:h2:tcp://localhost/                                           # fail
-    url: r2dbc:h2:file:///~/test
-#    url: r2dbc:h2:tcp:///~/test
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+#    url: r2dbc:h2:file:///~/test   # success
+#    url: r2dbc:h2:tcp:///~/test    # wrong
+    url: r2dbc:postgresql://localhost:5432/reactive-app
+    username: postgres
+    password: 1234
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
   sql:
     init:
-      mode: always
+      mode : always
+#  jpa:
+#    defer-datasource-initialization: true
+

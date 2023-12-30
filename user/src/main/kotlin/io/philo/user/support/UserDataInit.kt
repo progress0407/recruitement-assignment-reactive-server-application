@@ -4,15 +4,13 @@ import io.philo.user.entity.Users
 import io.philo.user.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
-import java.time.Duration
-import javax.annotation.PostConstruct
 
 @Component
 class UserDataInit(private val userRepository: UserRepository) {
 
     val log = KotlinLogging.logger {  }
 
-    @PostConstruct
+//    @PostConstruct
     fun init() {
         userRepository.saveAll(
             mutableListOf(
@@ -20,8 +18,8 @@ class UserDataInit(private val userRepository: UserRepository) {
                 Users("b@philo.com", "name-b", "1234"),
                 Users("c@philo.com", "name-c", "1234")
             )
-        ).blockLast(Duration.ofSeconds(1))
-        val flux = userRepository.findAll()
-        log.info { "flux = $flux" }
+        )
+//            .blockLast(Duration.ofSeconds(1))
+        val flux = userRepository.findAll().log()
     }
 }

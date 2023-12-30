@@ -6,10 +6,10 @@ import org.springframework.data.annotation.Id
 //@Table("users")
 open class Users protected constructor(
     @Id
-    val id: Long? = null,
-    var email: String = "",
-    val name: String,
-    var password: String = "" // encoded Password
+    open var id: Long? = null,
+    open var email: String = "",
+    open val name: String,
+    open var password: String = "" // encoded Password
 ) {
 
     protected constructor() : this(email = "", name = "", password = "")
