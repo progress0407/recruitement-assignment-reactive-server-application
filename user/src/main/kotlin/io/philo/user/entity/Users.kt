@@ -30,6 +30,6 @@ open class Users protected constructor(
     }
 
     override fun toString(): String {
-        return super.toString()
+        return "Users(id=$id, email='$email', name='$name')"
     }
 }

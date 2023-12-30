@@ -1,0 +1,42 @@
+package io.philo.presentation
+
+import io.philo.application.ItemService
+import io.philo.dto.ItemCreateRequest
+import io.philo.dto.ItemListResponse
+import io.philo.dto.ResourceCreateResponse
+import mu.KotlinLogging
+import org.springframework.http.HttpStatus.CREATED
+import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
+
+@RequestMapping("/items")
+@RestController
+class ItemController(private val itemService: ItemService) {
+
+    private val log = KotlinLogging.logger {  }
+
+    /**
+     * 상품 등록
+     */
+    @PostMapping
+    @ResponseStatus(CREATED)
+    fun add(@RequestBody request: ItemCreateRequest): ResourceCreateResponse {
+
+        val (name, price, stockQuantity) = request
+
+        val itemId = itemService.registerItem(name, price, stockQuantity)
+
+        return ResourceCreateResponse(itemId)
+    }
+
+    /**
+     * @param itemIds null일 경우 모두 조회
+     */
+    @GetMapping
+    fun list(): Flux<ItemListResponse> { // todo 페이징!
+
+        val responses = itemService.findItems().map { ItemListResponse(it) }
+
+        return responses
+    }
+}
