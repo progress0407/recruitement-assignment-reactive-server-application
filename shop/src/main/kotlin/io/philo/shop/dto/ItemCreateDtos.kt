@@ -1,4 +1,4 @@
-package io.philo.dto
+package io.philo.shop.dto
 
 class ItemCreateDtos
 

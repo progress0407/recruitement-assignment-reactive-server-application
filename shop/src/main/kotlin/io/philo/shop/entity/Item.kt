@@ -1,4 +1,4 @@
-package io.philo.entity
+package io.philo.shop.entity
 
 import org.springframework.data.annotation.Id
 

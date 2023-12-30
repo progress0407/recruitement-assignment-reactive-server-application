@@ -1,9 +1,9 @@
-package io.philo.presentation
+package io.philo.shop.presentation
 
-import io.philo.application.ItemService
-import io.philo.dto.ItemCreateRequest
-import io.philo.dto.ItemListResponse
 import io.philo.dto.ResourceCreateResponse
+import io.philo.shop.application.ItemService
+import io.philo.shop.dto.ItemCreateRequest
+import io.philo.shop.dto.ItemListResponse
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.bind.annotation.*

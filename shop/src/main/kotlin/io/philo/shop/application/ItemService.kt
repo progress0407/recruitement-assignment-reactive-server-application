@@ -1,7 +1,7 @@
-package io.philo.application
+package io.philo.shop.application
 
-import io.philo.entity.Item
-import io.philo.infrastructure.ItemRepository
+import io.philo.shop.entity.Item
+import io.philo.shop.infrastructure.ItemRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Flux
