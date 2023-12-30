@@ -23,12 +23,7 @@ springBoot {
 }
 */
 
-/* root project */
-dependencies {
-    implementation project(":user")
-    implementation project(":shop")
-    implementation project(":common")
-}
+
 
 allprojects {
 
@@ -74,6 +69,8 @@ allprojects {
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'io.projectreactor:reactor-test'
+
+//        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
     allOpen {
@@ -92,6 +89,22 @@ allprojects {
     tasks.named('test') {
         useJUnitPlatform()
     }
+}
+
+subprojects {
+    bootJar.enabled = false
+    jar.enabled = true
+}
+
+/* root project */
+
+bootJar.enabled = true
+jar.enabled = true
+
+dependencies {
+    implementation project(":user")
+    implementation project(":shop")
+    implementation project(":common")
 }
 
 project(':user') {
@@ -114,6 +127,4 @@ project(':shop') {
 }
 
 project(':common') {
-    bootJar.enabled = false
-    jar.enabled = true
 }
