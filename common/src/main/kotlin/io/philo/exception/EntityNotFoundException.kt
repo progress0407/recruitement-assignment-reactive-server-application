@@ -1,6 +1,4 @@
-package io.philo.user.exception
-
-import io.philo.shop.error.NotFoundException
+package io.philo.exception
 
 class EntityNotFoundException(
     condition: Any,

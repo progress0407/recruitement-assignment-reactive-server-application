@@ -7,7 +7,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
     id 'org.jetbrains.kotlin.plugin.spring' version "$kotlinVersion"
     id 'org.jetbrains.kotlin.plugin.jpa' version "$kotlinVersion"
-	id 'org.jetbrains.kotlin.plugin.allopen' version "$kotlinVersion"
+    id 'org.jetbrains.kotlin.plugin.allopen' version "$kotlinVersion"
 }
 
 configurations {
@@ -16,20 +16,28 @@ configurations {
     }
 }
 
+
+/*
+springBoot {
+    mainClassName = 'io.philo.ReactiveServerApplication'
+}
+*/
+
 /* root project */
 dependencies {
-	implementation project(":user")
-	implementation project(":shop")
+    implementation project(":user")
+    implementation project(":shop")
+    implementation project(":common")
 }
 
 allprojects {
 
-	apply plugin: 'java'
-	apply plugin: 'org.jetbrains.kotlin.jvm'
-	apply plugin: 'org.springframework.boot'
-	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'org.jetbrains.kotlin.plugin.spring'
-	apply plugin: 'org.jetbrains.kotlin.plugin.allopen'
+    apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+    apply plugin: 'org.jetbrains.kotlin.plugin.allopen'
 
     group = 'io.philo'
     version = '0.0.1-SNAPSHOT'
@@ -42,46 +50,70 @@ allprojects {
         mavenCentral()
     }
 
-	dependencies {
-		implementation 'org.jetbrains.kotlin:kotlin-reflect'
-		implementation 'io.github.microutils:kotlin-logging-jvm:2.0.11'
+    dependencies {
+        implementation 'org.jetbrains.kotlin:kotlin-reflect'
+        implementation 'io.github.microutils:kotlin-logging-jvm:2.0.11'
 
-		// implementation 'org.springframework.boot:spring-boot-starter'
-		// testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        // implementation 'org.springframework.boot:spring-boot-starter'
+        // testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-		testImplementation 'io.kotest:kotest-runner-junit5:5.8.0'
-		testImplementation 'io.kotest:kotest-assertions-core:5.8.0'
+        testImplementation 'io.kotest:kotest-runner-junit5:5.8.0'
+        testImplementation 'io.kotest:kotest-assertions-core:5.8.0'
 
-		implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
-		implementation 'org.springframework.boot:spring-boot-starter-webflux'
-		implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
-		implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'
-		implementation 'org.jetbrains.kotlin:kotlin-reflect'
-		implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
-		developmentOnly 'org.springframework.boot:spring-boot-devtools'
-		runtimeOnly 'com.h2database:h2'
-		runtimeOnly 'io.r2dbc:r2dbc-h2'
+        implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+        implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'
+        implementation 'org.jetbrains.kotlin:kotlin-reflect'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        runtimeOnly 'com.h2database:h2'
+        runtimeOnly 'io.r2dbc:r2dbc-h2'
 //		runtimeOnly 'org.postgresql:postgresql'
 //		runtimeOnly 'org.postgresql:r2dbc-postgresql'
-		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'io.projectreactor:reactor-test'
-	}
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.projectreactor:reactor-test'
+    }
 
-	allOpen {
-		annotation("jakarta.persistence.Entity")
-		annotation("jakarta.persistence.Embeddable")
-		annotation("jakarta.persistence.MappedSuperclass")
-	}
+    allOpen {
+        annotation("jakarta.persistence.Entity")
+        annotation("jakarta.persistence.Embeddable")
+        annotation("jakarta.persistence.MappedSuperclass")
+    }
 
-	tasks.withType(KotlinCompile).configureEach {
-		kotlinOptions {
-			freeCompilerArgs += '-Xjsr305=strict'
-			jvmTarget = '11'
-		}
-	}
+    tasks.withType(KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += '-Xjsr305=strict'
+            jvmTarget = '11'
+        }
+    }
 
-	tasks.named('test') {
-		useJUnitPlatform()
-	}
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
+
+project(':user') {
+    dependencies {
+        implementation 'org.springframework.security:spring-security-core'
+
+        // jjwt
+        implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+        implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+        implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+        implementation project(':common')
+    }
+}
+
+project(':shop') {
+    dependencies {
+        implementation project(':common')
+    }
+}
+
+project(':common') {
+    bootJar.enabled = false
+    jar.enabled = true
 }

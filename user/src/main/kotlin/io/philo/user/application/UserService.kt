@@ -1,9 +1,9 @@
 package io.philo.user.application
 
-import io.philo.shop.error.UnauthorizedException
+import io.philo.exception.EntityNotFoundException
+import io.philo.exception.UnauthorizedException
 import io.philo.support.JwtManager
 import io.philo.user.entity.Users
-import io.philo.user.exception.EntityNotFoundException
 import io.philo.user.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

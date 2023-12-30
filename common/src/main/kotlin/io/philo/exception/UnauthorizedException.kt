@@ -1,4 +1,4 @@
-package io.philo.shop.error
+package io.philo.exception
 
 import org.springframework.http.HttpStatus
 

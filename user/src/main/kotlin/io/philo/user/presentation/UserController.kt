@@ -1,9 +1,9 @@
 package io.philo.user.presentation
 
+import io.philo.dto.ResourceCreateResponse
 import io.philo.user.application.UserService
 import io.philo.user.entity.Users
 import io.philo.user.presentation.dto.UserCreateRequest
-import io.philo.user.presentation.dto.UserCreateResponse
 import io.philo.user.presentation.dto.UserLoginRequest
 import io.philo.user.repository.UserRepository
 import org.springframework.http.HttpHeaders
@@ -22,10 +22,10 @@ class UserController(
 
     @PostMapping
     @ResponseStatus(OK)
-    fun save(@RequestBody request: UserCreateRequest): Mono<UserCreateResponse> {
+    fun save(@RequestBody request: UserCreateRequest): Mono<ResourceCreateResponse> {
 
         val idMono = service.save(request.email, request.name, request.password)
-        return idMono.map { UserCreateResponse(it) }
+        return idMono.map { ResourceCreateResponse(it) }
     }
 
     @GetMapping
