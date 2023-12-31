@@ -11,6 +11,7 @@ import io.philo.shop.entity.Item
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.MediaType.APPLICATION_JSON
+import java.time.LocalDateTime.now
 
 
 class ItemIntegrationTest: IntegrationTest() {
@@ -59,7 +60,7 @@ class ItemIntegrationTest: IntegrationTest() {
             .expectStatus().isOk
             .expectBodyList(ItemListResponse::class.java)
             .hasSize(1)
-            .contains(ItemListResponse(2L, Item.fixture.name, Item.fixture.price, Item.fixture.stockQuantity))
+            .contains(ItemListResponse(2L, Item.fixture.name, Item.fixture.price, Item.fixture.stockQuantity, now(), now()))
     }
 
     val Item.Companion.fixture

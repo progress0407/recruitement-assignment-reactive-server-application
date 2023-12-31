@@ -22,8 +22,8 @@ class Query(private val userRepository: UserRepository, private val itemReposito
         val userDeferred = async { userRepository.findAll() }
         val itemDeferred = async { itemRepository.findAll() }
 
-        val userIds: Flux<Long> = userDeferred.await().map { it.id!! }
-        val items: Flux<Item> = itemDeferred.await()
+        val userIds: Flux<Long> = userDeferred.await().map { it.id!! }.onBackpressureDrop()
+        val items: Flux<Item> = itemDeferred.await().onBackpressureDrop()
 
         val itemMonoList = items.collectList()
 
