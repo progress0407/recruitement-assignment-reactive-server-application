@@ -1,7 +1,7 @@
 package io.philo.user.application
 
 import io.philo.auth.JwtManager
-import io.philo.exception.UnauthorizedException
+import io.philo.exception.constant.UnauthorizedException
 import io.philo.user.entity.Users
 import io.philo.user.repository.UserRepository
 import mu.KotlinLogging

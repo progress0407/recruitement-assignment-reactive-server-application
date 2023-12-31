@@ -1,6 +1,7 @@
 package io.philo.shop.presentation
 
 import io.philo.dto.ResourceCreateResponse
+import io.philo.exception.constant.EntityNotFoundException
 import io.philo.shop.application.ItemService
 import io.philo.shop.dto.ItemCreateRequest
 import io.philo.shop.dto.ItemListResponse
@@ -31,14 +32,19 @@ class ItemController(private val itemService: ItemService) {
         return itemId.map { ResourceCreateResponse(it) }
     }
 
-    /**
-     * @param itemIds null일 경우 모두 조회
-     */
     @GetMapping
     fun list(): Flux<ItemListResponse> { // todo 페이징!
 
         val responses = itemService.findItems().map { ItemListResponse(it) }
 
         return responses
+    }
+
+    @GetMapping("/test")
+    fun test(): Flux<Unit> {
+
+        log.info { "" }
+
+        throw EntityNotFoundException()
     }
 }

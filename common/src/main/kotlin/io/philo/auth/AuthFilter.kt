@@ -1,6 +1,6 @@
 package io.philo.auth
 
-import io.philo.exception.UnauthorizedException
+import io.philo.exception.constant.UnauthorizedException
 import mu.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
