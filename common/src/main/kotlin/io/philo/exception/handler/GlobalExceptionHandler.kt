@@ -13,7 +13,6 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @Component
-//@Order(HIGHEST_PRECEDENCE)
 class GlobalExceptionHandler : ErrorWebExceptionHandler {
 
     private val log = KotlinLogging.logger {  }
