@@ -35,14 +35,18 @@ allprojects {
     }
 
     dependencies {
+        // kotlin
         implementation 'org.jetbrains.kotlin:kotlin-reflect'
         implementation 'io.github.microutils:kotlin-logging-jvm:2.0.11'
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
         implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+
+        // coroutine
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+        // kotest
         testImplementation 'io.kotest:kotest-runner-junit5:5.8.0'
         testImplementation 'io.kotest:kotest-assertions-core:5.8.0'
 
@@ -56,10 +60,6 @@ allprojects {
         runtimeOnly 'org.postgresql:postgresql'
         runtimeOnly 'org.postgresql:r2dbc-postgresql'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-        testImplementation 'io.rest-assured:rest-assured'
-
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
         implementation 'com.google.code.gson:gson:2.10'
         testImplementation 'com.ninja-squad:springmockk:3.1.2'
