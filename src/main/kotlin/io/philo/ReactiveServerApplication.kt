@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
 import javax.annotation.PostConstruct
 
 @SpringBootApplication
+@EnableR2dbcAuditing
 class ReactiveServerApplication {
 
     @Autowired

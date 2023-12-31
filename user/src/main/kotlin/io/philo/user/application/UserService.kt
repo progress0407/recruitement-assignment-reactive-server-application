@@ -8,6 +8,7 @@ import io.philo.user.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
@@ -25,6 +26,13 @@ class UserService(
         return repository.save(user).mapNotNull { it.id }
     }
 
+    @Transactional(readOnly = true)
+    fun findAll(): Flux<User> {
+
+        return repository.findAll()
+    }
+
+    @Transactional(readOnly = true)
     fun login(email: String, inputPassword: String): Mono<String> {
 
         return repository.findByEmail(email)

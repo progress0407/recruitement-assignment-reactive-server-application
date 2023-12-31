@@ -1,20 +1,19 @@
 package io.philo.shop.dto
 
 import io.philo.shop.entity.Item
+import java.time.LocalDateTime
 
 class ItemListApiDtos
-
-data class ItemListResponses(
-    val items: List<ItemListResponse> = emptyList()
-)
 
 data class ItemListResponse(
     val id: Long,
     val name: String,
     val price: Int,
-    val availableQuantity: Int
+    val availableQuantity: Int,
+    val createdAt: LocalDateTime,
+    val lastModifiedAt: LocalDateTime
 ) {
-    constructor(item: Item) : this(item.id!!, item.name, item.price, item.stockQuantity)
+    constructor(item: Item) : this(item.id!!, item.name, item.price, item.stockQuantity, item.createdAt, item.lastModifiedAt)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

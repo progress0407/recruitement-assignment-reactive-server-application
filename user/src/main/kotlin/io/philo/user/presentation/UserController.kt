@@ -2,10 +2,9 @@ package io.philo.user.presentation
 
 import io.philo.dto.ResourceCreateResponse
 import io.philo.user.application.UserService
-import io.philo.user.entity.User
 import io.philo.user.presentation.dto.UserCreateRequest
+import io.philo.user.presentation.dto.UserListResponse
 import io.philo.user.presentation.dto.UserLoginRequest
-import io.philo.user.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.HttpStatus.CREATED
@@ -18,7 +17,6 @@ import reactor.core.publisher.Mono
 @RequestMapping("/users")
 class UserController(
     private val service: UserService,
-    private val repository: UserRepository,
 ) {
 
     private val log = KotlinLogging.logger { }
@@ -32,9 +30,10 @@ class UserController(
     }
 
     @GetMapping
-    fun findAll(): Flux<User> {
+    fun findAll(): Flux<UserListResponse> {
 
-        return repository.findAll().log()
+        return service.findAll()
+            .map { UserListResponse(it) }
     }
 
     @PostMapping("/login")
