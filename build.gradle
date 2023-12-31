@@ -7,7 +7,6 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
     id 'org.jetbrains.kotlin.plugin.spring' version "$kotlinVersion"
     id 'org.jetbrains.kotlin.plugin.jpa' version "$kotlinVersion"
-    id 'org.jetbrains.kotlin.plugin.allopen' version "$kotlinVersion"
 }
 
 configurations {
@@ -30,7 +29,6 @@ allprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.jetbrains.kotlin.plugin.spring'
-    apply plugin: 'org.jetbrains.kotlin.plugin.allopen'
 
     group = 'io.philo'
     version = '0.0.1-SNAPSHOT'
@@ -76,12 +74,6 @@ allprojects {
 
         implementation 'com.google.code.gson:gson:2.10'
         testImplementation 'com.ninja-squad:springmockk:3.1.2'
-    }
-
-    allOpen {
-        annotation("jakarta.persistence.Entity")
-        annotation("jakarta.persistence.Embeddable")
-        annotation("jakarta.persistence.MappedSuperclass")
     }
 
     tasks.withType(KotlinCompile).configureEach {

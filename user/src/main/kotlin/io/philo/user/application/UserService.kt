@@ -2,7 +2,7 @@ package io.philo.user.application
 
 import io.philo.auth.JwtManager
 import io.philo.exception.constant.UnauthorizedException
-import io.philo.user.entity.Users
+import io.philo.user.entity.User
 import io.philo.user.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
@@ -20,7 +20,7 @@ class UserService(
     @Transactional
     fun save(email: String, name: String, password: String): Mono<Long> {
 
-        val user = Users(email, name, password)
+        val user = User(email, name, password)
         return repository.save(user).mapNotNull { it.id }
     }
 
@@ -40,13 +40,13 @@ class UserService(
             }
     }
 
-    private fun validateCredential(inputPassword: String, user: Users) {
+    private fun validateCredential(inputPassword: String, user: User) {
         if (isCorrectCredential(inputPassword, user).not()) {
             throw UnauthorizedException("유효한 로그인 정보가 아닙니다.")
         }
     }
 
-    private fun isCorrectCredential(inputPassword: String, user: Users): Boolean {
+    private fun isCorrectCredential(inputPassword: String, user: User): Boolean {
         return user.isSamePassword(inputPassword)
     }
 }

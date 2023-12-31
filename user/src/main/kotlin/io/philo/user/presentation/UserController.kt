@@ -2,7 +2,7 @@ package io.philo.user.presentation
 
 import io.philo.dto.ResourceCreateResponse
 import io.philo.user.application.UserService
-import io.philo.user.entity.Users
+import io.philo.user.entity.User
 import io.philo.user.presentation.dto.UserCreateRequest
 import io.philo.user.presentation.dto.UserLoginRequest
 import io.philo.user.repository.UserRepository
@@ -32,7 +32,7 @@ class UserController(
     }
 
     @GetMapping
-    fun findAll(): Flux<Users> {
+    fun findAll(): Flux<User> {
 
         return repository.findAll().log()
     }

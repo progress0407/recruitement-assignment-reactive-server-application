@@ -2,19 +2,17 @@ package io.philo.shop.entity
 
 import org.springframework.data.annotation.Id
 
-open class Item protected constructor(
+class Item private constructor(
 
     @Id
-    open var id: Long? = null,
-    open var name: String = "",
-    open var price: Int = 0,
-    open var stockQuantity: Int,
-    open var userId: Long
+    var id: Long? = null,
+    var name: String = "",
+    var price: Int = 0,
+    var stockQuantity: Int,
+    var userId: Long
 ) {
 
     companion object {}
-
-    protected constructor() : this(id = null, name = "", price = 0, stockQuantity = 0, userId = 0)
 
     constructor(
         name: String,

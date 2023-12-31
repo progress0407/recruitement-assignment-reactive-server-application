@@ -2,24 +2,23 @@ package io.philo.user.entity
 
 import io.philo.support.PasswordEncoder
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 
-//@Table("users")
-open class Users protected constructor(
+@Table("users")
+class User private constructor(
     @Id
-    open var id: Long? = null,
-    open var email: String = "",
-    open val name: String,
-    open var password: String = "" // encoded Password
+    var id: Long? = null,
+    var email: String = "",
+    val name: String,
+    var password: String = "" // encoded Password
 ) {
 
     companion object {}
 
-    protected constructor() : this(email = "", name = "", password = "")
-
     constructor(
         email: String,
         name: String,
-        rawPassword: String
+        rawPassword: String,
     ) :
             this(
                 email = email,

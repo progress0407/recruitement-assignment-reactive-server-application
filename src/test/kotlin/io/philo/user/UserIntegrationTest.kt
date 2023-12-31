@@ -4,7 +4,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.philo.dto.ResourceCreateResponse
 import io.philo.support.IntegrationTest
-import io.philo.user.entity.Users
+import io.philo.user.entity.User
 import io.philo.user.presentation.dto.UserCreateRequest
 import io.philo.user.presentation.dto.UserLoginRequest
 import mu.KotlinLogging
@@ -40,20 +40,20 @@ class UserIntegrationTest : IntegrationTest() {
     }
 
 
-    val Users.Companion.fixtureEmail get() = "philo@philo.io"
-    val Users.Companion.fixtureName get() = "philo"
-    val Users.Companion.fixtureRawPassword get() = "1234"
+    val User.Companion.fixtureEmail get() = "philo@philo.io"
+    val User.Companion.fixtureName get() = "philo"
+    val User.Companion.fixtureRawPassword get() = "1234"
 
     val UserCreateRequest.Companion.fixture
         get() = UserCreateRequest(
-            email = Users.fixtureEmail,
-            name = Users.fixtureName,
-            password = Users.fixtureRawPassword
+            email = User.fixtureEmail,
+            name = User.fixtureName,
+            password = User.fixtureRawPassword
         )
 
     val UserLoginRequest.Companion.fixture
         get() = UserLoginRequest(
-            id = Users.fixtureEmail,
-            password = Users.fixtureRawPassword
+            id = User.fixtureEmail,
+            password = User.fixtureRawPassword
         )
 }
