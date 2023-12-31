@@ -18,7 +18,7 @@ class ItemService(private val itemRepository: ItemRepository) {
         availableQuantity: Int
     ): Mono<Long> {
 
-        val item = Item(name, price, availableQuantity)
+        val item = Item(name, price, availableQuantity, 0L)
         val savedId = itemRepository.save(item).map { it.id!! }
 
         return savedId

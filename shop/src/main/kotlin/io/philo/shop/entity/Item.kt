@@ -8,19 +8,20 @@ open class Item protected constructor(
     open var id: Long? = null,
     open var name: String = "",
     open var price: Int = 0,
-    open var stockQuantity: Int
+    open var stockQuantity: Int,
+    open var userId: Long,
 ) {
 
+    companion object {}
 
-    protected constructor() : this(id = null, name = "", price = 0, stockQuantity = 0)
+    protected constructor() : this(id = null, name = "", price = 0, stockQuantity = 0, userId = 0)
 
     constructor(
         name: String,
         price: Int,
-        stockQuantity: Int
-    ) : this(id = null, name, price, stockQuantity)
-
-    companion object
+        stockQuantity: Int,
+        userId: Long
+    ) : this(null, name, price, stockQuantity, userId)
 
     fun decreaseStockQuantity(orderQuantity: Int) {
         validateCanDecrease(orderQuantity)

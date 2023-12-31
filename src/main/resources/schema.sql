@@ -15,6 +15,7 @@ CREATE TABLE item
     id   SERIAL PRIMARY KEY,
     name VARCHAR(300) NOT NULL,
     price INTEGER NOT NULL,
-    stock_quantity INTEGER NOT NULL
+    stock_quantity INTEGER NOT NULL,
+    user_id INTEGER NOT NULL
 );
 
