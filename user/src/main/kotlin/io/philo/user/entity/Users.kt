@@ -12,6 +12,8 @@ open class Users protected constructor(
     open var password: String = "" // encoded Password
 ) {
 
+    companion object {}
+
     protected constructor() : this(email = "", name = "", password = "")
 
     constructor(

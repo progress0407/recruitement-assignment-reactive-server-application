@@ -1,22 +1,14 @@
 package io.philo.item
 
-import io.philo.AcceptanceTest
 import io.philo.dto.ResourceCreateResponse
 import io.philo.shop.dto.ItemCreateRequest
 import io.philo.shop.dto.ItemListResponse
 import io.philo.shop.entity.Item
+import io.philo.support.IntegrationTest
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.test.web.reactive.server.WebTestClient
 
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ItemIntegrationTest : AcceptanceTest(){
-
-    @Autowired
-    lateinit var  webClient: WebTestClient
+class ItemIntegrationTest: IntegrationTest() {
 
     @Test
     fun `재고 등록 및 조회`() {
@@ -24,8 +16,8 @@ class ItemIntegrationTest : AcceptanceTest(){
         // given
         val requestBody = ItemCreateRequest.fixture
 
-        // when
-        webClient.post().uri("/items")
+        // when & then
+        webTestClient.post().uri("/items")
             .contentType(APPLICATION_JSON)
             .bodyValue(requestBody)
             .exchange()
@@ -33,7 +25,7 @@ class ItemIntegrationTest : AcceptanceTest(){
             .expectBody(ResourceCreateResponse::class.java)
             .isEqualTo(ResourceCreateResponse(1L))
 
-        webClient.get().uri("/items")
+        webTestClient.get().uri("/items")
             .exchange()
             .expectStatus().isOk
             .expectBodyList(ItemListResponse::class.java)
@@ -55,7 +47,9 @@ class ItemIntegrationTest : AcceptanceTest(){
         }
 
     val Item.Companion.fixture
-        get() = Item(name = "컨셉원 슬랙스 BLACK 30",
+        get() = Item(
+            name = "컨셉원 슬랙스 BLACK 30",
             price = 70_000,
-            stockQuantity = 500)
+            stockQuantity = 500
+        )
 }

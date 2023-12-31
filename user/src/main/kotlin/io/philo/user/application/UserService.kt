@@ -1,10 +1,10 @@
 package io.philo.user.application
 
-import io.philo.exception.EntityNotFoundException
 import io.philo.exception.UnauthorizedException
 import io.philo.support.JwtManager
 import io.philo.user.entity.Users
 import io.philo.user.repository.UserRepository
+import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Mono
@@ -15,6 +15,8 @@ class UserService(
     private val repository: UserRepository
 ) {
 
+    private val log = KotlinLogging.logger {  }
+
     @Transactional
     fun save(email: String, name: String, password: String): Mono<Long> {
 
@@ -22,17 +24,20 @@ class UserService(
         return repository.save(user).mapNotNull { it.id }
     }
 
-    @Transactional(readOnly = true)
-    fun login(email: String, password: String): String {
+    /*
+    todo EntityNotFoundException 예외처리기 달기! 500 -> 401
+     */
+    fun login(email: String, inputPassword: String): Mono<String> {
 
-        val user = repository.findByEmail(email).block() ?: throw EntityNotFoundException(email)
-
-        validateCredential(password, user)
-
-        val subject = user.id.toString()
-        val newAccessToken = jwtManager.createAccessToken(subject)
-
-        return newAccessToken
+        return repository.findByEmail(email)
+            .doOnNext { log.info { "user: $it" } }
+//            .switchIfEmpty(Mono.error(EntityNotFoundException(email)))
+            .map { user ->
+                validateCredential(inputPassword, user)
+                val subject = user.id.toString()
+                val accessToken = jwtManager.createAccessToken(subject)
+                accessToken
+            }
     }
 
     private fun validateCredential(inputPassword: String, user: Users) {
