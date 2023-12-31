@@ -1,4 +1,4 @@
-package io.philo.item
+package io.philo.integration.item
 
 import com.ninjasquad.springmockk.MockkBean
 import io.kotest.matchers.shouldBe
@@ -6,10 +6,10 @@ import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import io.philo.auth.JwtManager
 import io.philo.dto.ResourceCreateResponse
+import io.philo.integration.support.IntegrationTest
 import io.philo.shop.dto.ItemCreateRequest
 import io.philo.shop.dto.ItemListResponse
 import io.philo.shop.entity.Item
-import io.philo.support.IntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.MediaType.APPLICATION_JSON

@@ -1,5 +1,6 @@
-package io.philo.support
+package io.philo.integration.support
 
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -9,4 +10,12 @@ class IntegrationTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
+
+    @Autowired
+    lateinit var sqlExecutor: SqlExecutor
+
+    @BeforeEach
+    fun setUp() {
+        sqlExecutor.clearData()
+    }
 }

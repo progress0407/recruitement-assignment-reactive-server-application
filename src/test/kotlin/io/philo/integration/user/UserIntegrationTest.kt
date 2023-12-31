@@ -1,9 +1,9 @@
-package io.philo.user
+package io.philo.integration.user
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.philo.dto.ResourceCreateResponse
-import io.philo.support.IntegrationTest
+import io.philo.integration.support.IntegrationTest
 import io.philo.user.entity.User
 import io.philo.user.presentation.dto.UserCreateRequest
 import io.philo.user.presentation.dto.UserLoginRequest

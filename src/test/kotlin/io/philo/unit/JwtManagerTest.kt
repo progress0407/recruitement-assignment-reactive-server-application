@@ -1,4 +1,4 @@
-package unit
+package io.philo.unit
 
 import io.jsonwebtoken.security.Keys
 import io.kotest.core.spec.style.StringSpec
