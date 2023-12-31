@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
+import javax.annotation.PostConstruct
 
 @SpringBootApplication
 class ReactiveServerApplication {
@@ -14,12 +15,10 @@ class ReactiveServerApplication {
 
     private val log = KotlinLogging.logger { }
 
-    /*
-        @PostConstruct
-        fun check() {
-            println(applicationContext)
-        }
-    */
+    @PostConstruct
+    fun check() {
+        println(applicationContext)
+    }
 
     /*
         @Bean

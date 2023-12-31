@@ -48,6 +48,7 @@ allprojects {
         implementation 'io.github.microutils:kotlin-logging-jvm:2.0.11'
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
         implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -108,6 +109,7 @@ jar.enabled = true
 dependencies {
     implementation project(":user")
     implementation project(":shop")
+    implementation project(":query")
     implementation project(":common")
 }
 

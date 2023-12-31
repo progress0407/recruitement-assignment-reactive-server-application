@@ -23,6 +23,7 @@ class GlobalExceptionHandler : ErrorWebExceptionHandler {
     override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> {
 
         log.error { ex }
+        ex.printStackTrace()
 
         val response = exchange.response
         setJsonContentType(response)
