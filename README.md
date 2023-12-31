@@ -2,7 +2,7 @@
 
 ## 프로젝트 구조
 
-| 항목    | 설명                    |
+| 모듈명   | 설명                    |
 |-------|-----------------------|
 | root  | SpringBoot Main 클래스   |
 | user  | 사용자 하위 도메인            |
@@ -11,18 +11,24 @@
 
 * 테스트 코드는 root 모듈에 있습니다 (`/src/test/kotlin`)
 
-## API
+## API 리스트
 
-- User
-  - GET (리스트 조회)
-  - POST
-  - 로그인
+### 사용자 (User)
 
-- Item
-  - GET (리스트 조회)
-  - POST
-  - PUT
-  - DELETE
+| 항목     | API             |
+|--------|-------------------|
+| 리스트 조회 | GET /users        | 
+| 회원 가입  | POST /users       | 
+| 로그인    | POST /users/login |
+
+### 상품 (Item)
+
+| 항목     | API              |
+|--------|--------------------|
+| 리스트 조회 | GET /items         | 
+| 상품 등록  | POST /items/{id}   | 
+| 상품 수정  | PUT /items/{id}    |
+| 상품 삭제  | DELETE /items/{id} |
 
 ## 프로젝트 설명
 
@@ -35,22 +41,27 @@ Query(Read), 그 중에서도 복잡한 쿼리의 경우 query 모듈에 작성�
 멀티모듈을 도입한 이유는 MSA 처럼 데이터 정합성으로부터 자유롭지만 각 하위 도메인간의 결합도를 느슨하게 가져갈 수 있을 것이라 생각하여 적용해보았습니다  
 단, 크지 않은 프로젝트의 경우 단일 모듈로 적용하는 것이 좋을 것이라 생각했습니다
 
-
-## 적용한 것
+## 기술 스펙
 
 - Java 11
 - WebFlux
 - PostgresSQL
 - 코루틴
 - 멀티 모듈 (Gradle)
-- 테스트 (통합, 단위)
 
+## 적용한 것 
+
+> 소스 코드 레벨에서 적용한 것
+
+- 테스트 (통합, 단위)
+- 예외 핸들링 (`ErrorWebExceptionHandler`)
+- 인증 필터 (`WebFilter`)
 
 ## 하지 못한 것
 
 - WebFlux와 Hibernate(JPA) 적용
-  - EntityManager 등록 등, JDBC 레벨에서의 이슈를 해결하지 못하였습니다.
+    - EntityManager 등록 등, JDBC 레벨에서의 이슈를 해결하지 못하였습니다.
 
 - WebFlux 스러운 코드 컨벤션 적용
-  - WebFlux에 대한 충분히 학습하지 못하였습니다
+    - WebFlux에 대한 충분히 학습하지 못하였습니다
  
