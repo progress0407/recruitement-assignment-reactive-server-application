@@ -7,4 +7,7 @@ package io.philo.dto
  */
 class ResourceCreateApis
 
-data class ResourceCreateResponse(val id: Long)
+data class ResourceCreateResponse(val id: Long) {
+
+    companion object
+}

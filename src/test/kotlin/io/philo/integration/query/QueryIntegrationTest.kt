@@ -18,12 +18,20 @@ class QueryIntegrationTest : IntegrationTest() {
     @Test
     fun `통계 정보 조회 및 검증`() {
 
-        val responseBody = webTestClient.get().uri("/query/user-statistics")
-            .exchange()
-            .expectStatus().isOk
-            .expectBody(object : ParameterizedTypeReference<List<QueryResponse>>() {} )
-            .returnResult()
-            .responseBody!!
+        val responseBody = 통계_정보_조회()
+
+        통계_정보_검증(responseBody)
+    }
+
+    private fun 통계_정보_조회() = webTestClient.get().uri("/query/user-statistics")
+
+        .exchange()
+        .expectStatus().isOk
+        .expectBody(object : ParameterizedTypeReference<List<QueryResponse>>() {})
+        .returnResult()
+        .responseBody!!
+
+    private fun 통계_정보_검증(responseBody: List<QueryResponse>) {
 
         responseBody shouldContainExactlyInAnyOrder listOf(
             QueryResponse(1, 1),
@@ -31,6 +39,4 @@ class QueryIntegrationTest : IntegrationTest() {
             QueryResponse(3, 0)
         )
     }
-
-
 }

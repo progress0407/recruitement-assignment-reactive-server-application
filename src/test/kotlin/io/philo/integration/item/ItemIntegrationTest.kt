@@ -1,8 +1,6 @@
 package io.philo.integration.item
 
 import com.ninjasquad.springmockk.MockkBean
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import io.philo.auth.JwtManager
 import io.philo.dto.ResourceCreateResponse
@@ -23,11 +21,24 @@ class ItemIntegrationTest: IntegrationTest() {
     @Test
     fun `재고 등록 및 조회`() {
 
+        내부_동작_모킹()
+
+        val createdDto = 재고_등록()
+
+        생성된_자원_검증(createdDto)
+
+        재고_조회후_검증()
+    }
+
+    private fun 내부_동작_모킹() {
+
         every { jwtManager.isValidToken(any()) } returns true
         every { jwtManager.parse(any()) } returns "1"
+    }
 
+    private fun 재고_등록(): ResourceCreateResponse? {
 
-        val createdDto = webTestClient.post().uri("/items")
+        return webTestClient.post().uri("/items")
             .headers { headers ->
                 headers.add(AUTHORIZATION, "access token here")
                 headers.add("userId", "1")
@@ -39,9 +50,9 @@ class ItemIntegrationTest: IntegrationTest() {
             .expectBody(ResourceCreateResponse::class.java)
             .returnResult()
             .responseBody
+    }
 
-        createdDto shouldNotBe null
-        (createdDto!!.id > 0L) shouldBe true
+    private fun 재고_조회후_검증() {
 
         webTestClient.get().uri("/items")
             .exchange()

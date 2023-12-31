@@ -1,7 +1,5 @@
 package io.philo.integration.user
 
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.philo.dto.ResourceCreateResponse
 import io.philo.integration.support.IntegrationTest
 import io.philo.user.entity.User
@@ -19,7 +17,16 @@ class UserIntegrationTest : IntegrationTest() {
     @Test
     fun `회원가입 후 로그인하면 토큰이 발급된다`() {
 
-        val createdDto = webTestClient.post().uri("/users")
+        val createdDto = 회원_가입()
+
+        생성된_자원_검증(createdDto)
+
+        토큰_발급후_검증()
+    }
+
+    private fun 회원_가입(): ResourceCreateResponse? {
+
+        return webTestClient.post().uri("/users")
             .contentType(APPLICATION_JSON)
             .bodyValue(UserCreateRequest.fixture)
             .exchange()
@@ -27,9 +34,9 @@ class UserIntegrationTest : IntegrationTest() {
             .expectBody(ResourceCreateResponse::class.java)
             .returnResult()
             .responseBody
+    }
 
-        createdDto shouldNotBe null
-        (createdDto!!.id > 0L) shouldBe true
+    private fun 토큰_발급후_검증() {
 
         webTestClient.post().uri("/users/login")
             .contentType(APPLICATION_JSON)

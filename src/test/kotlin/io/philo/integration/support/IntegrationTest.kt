@@ -1,5 +1,8 @@
 package io.philo.integration.support
 
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import io.philo.dto.ResourceCreateResponse
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,5 +20,11 @@ class IntegrationTest {
     @BeforeEach
     fun setUp() {
         sqlExecutor.clearData()
+    }
+
+    protected fun 생성된_자원_검증(createdDto: ResourceCreateResponse?) {
+
+        createdDto shouldNotBe null
+        (createdDto!!.id > 0L) shouldBe true
     }
 }
