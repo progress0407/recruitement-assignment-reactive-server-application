@@ -11,6 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
+import reactor.core.publisher.Mono
 
 
 @Configuration
@@ -39,11 +40,18 @@ class FilterConfig {
                 request.mutate().header("userId", userId).build()
             }
 
-            // 초기화
-//            request.mutate().header("userId", "").build()
-
-            chain.filter(exchange)
+            chain.filter(exchange).then(removeUserInfoIfExist(exchange))
         }
+
+    private fun removeUserInfoIfExist(exchange: ServerWebExchange): Mono<Void> =
+        Mono.defer {
+            val responseHeaders = exchange.response.headers
+            if (responseHeaders.containsKey("userId")) {
+                responseHeaders.remove("userId")
+            }
+            Mono.empty()
+        }
+
 
     private fun isRequiredCredentials(method: HttpMethod?, path: String) = method == POST && path == "/items"
 
