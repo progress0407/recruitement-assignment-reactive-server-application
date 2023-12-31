@@ -9,7 +9,7 @@ open class Item protected constructor(
     open var name: String = "",
     open var price: Int = 0,
     open var stockQuantity: Int,
-    open var userId: Long,
+    open var userId: Long
 ) {
 
     companion object {}
@@ -35,6 +35,6 @@ open class Item protected constructor(
     }
 
     override fun toString(): String {
-        return "Item(id=$id, name='$name', price=$price, stockQuantity=$stockQuantity)"
+        return "Item(name='$name', price=$price, stockQuantity=$stockQuantity, userId=$userId)"
     }
 }

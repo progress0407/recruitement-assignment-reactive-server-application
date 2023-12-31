@@ -14,19 +14,20 @@ import reactor.core.publisher.Mono
 @RestController
 class ItemController(private val itemService: ItemService) {
 
-    private val log = KotlinLogging.logger {  }
+    private val log = KotlinLogging.logger { }
 
     /**
      * 상품 등록
      */
     @PostMapping
     @ResponseStatus(CREATED)
-    fun add(@RequestBody request: ItemCreateRequest): Mono<ResourceCreateResponse> {
+    fun add(
+        @RequestBody request: ItemCreateRequest,
+        @RequestHeader("userId") userId: String
+    ): Mono<ResourceCreateResponse> {
 
         val (name, price, stockQuantity) = request
-
-        val itemId = itemService.registerItem(name, price, stockQuantity)
-
+        val itemId = itemService.registerItem(name, price, stockQuantity, userId.toLong())
         return itemId.map { ResourceCreateResponse(it) }
     }
 

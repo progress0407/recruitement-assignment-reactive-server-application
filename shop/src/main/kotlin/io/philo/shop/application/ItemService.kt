@@ -15,10 +15,11 @@ class ItemService(private val itemRepository: ItemRepository) {
     fun registerItem(
         name: String,
         price: Int,
-        availableQuantity: Int
+        availableQuantity: Int,
+        userId: Long
     ): Mono<Long> {
 
-        val item = Item(name, price, availableQuantity, 0L)
+        val item = Item(name, price, availableQuantity, userId)
         val savedId = itemRepository.save(item).map { it.id!! }
 
         return savedId

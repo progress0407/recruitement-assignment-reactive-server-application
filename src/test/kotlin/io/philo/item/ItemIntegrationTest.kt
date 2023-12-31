@@ -13,13 +13,9 @@ class ItemIntegrationTest: IntegrationTest() {
     @Test
     fun `재고 등록 및 조회`() {
 
-        // given
-        val requestBody = ItemCreateRequest.fixture
-
-        // when & then
         webTestClient.post().uri("/items")
             .contentType(APPLICATION_JSON)
-            .bodyValue(requestBody)
+            .bodyValue(ItemCreateRequest.fixture)
             .exchange()
             .expectStatus().isCreated
             .expectBody(ResourceCreateResponse::class.java)
@@ -31,8 +27,15 @@ class ItemIntegrationTest: IntegrationTest() {
             .expectBodyList(ItemListResponse::class.java)
             .hasSize(1)
             .contains(ItemListResponse(2L, Item.fixture.name, Item.fixture.price, Item.fixture.stockQuantity))
-
     }
+
+    val Item.Companion.fixture
+        get() = Item(
+            name = "컨셉원 슬랙스 BLACK 30",
+            price = 70_000,
+            stockQuantity = 500,
+            userId = 1
+        )
 
     val ItemCreateRequest.Companion.fixture: ItemCreateRequest
         get() {
@@ -45,11 +48,4 @@ class ItemIntegrationTest: IntegrationTest() {
                 stockQuantity = entity.stockQuantity
             )
         }
-
-    val Item.Companion.fixture
-        get() = Item(
-            name = "컨셉원 슬랙스 BLACK 30",
-            price = 70_000,
-            stockQuantity = 500
-        )
 }

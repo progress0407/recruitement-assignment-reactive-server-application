@@ -34,7 +34,13 @@ class FilterConfig {
                 if(jwtManager.isValidToken(accessToken).not()) {
                     throw UnauthorizedException("인증 토큰이 유효하지 않습니다.")
                 }
+
+                val userId = jwtManager.parse(accessToken)
+                request.mutate().header("userId", userId).build()
             }
+
+            // 초기화
+//            request.mutate().header("userId", "").build()
 
             chain.filter(exchange)
         }

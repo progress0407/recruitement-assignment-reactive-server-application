@@ -31,14 +31,12 @@ class UserIntegrationTest : IntegrationTest() {
         createdDto shouldNotBe null
         (createdDto!!.id > 0L) shouldBe true
 
-        val result2 = webTestClient.post().uri("/users/login")
+        webTestClient.post().uri("/users/login")
             .contentType(APPLICATION_JSON)
             .bodyValue(UserLoginRequest.fixture)
             .exchange()
             .expectHeader()
             .exists(AUTHORIZATION)
-
-        println("result2 = ${result2}")
     }
 
 
