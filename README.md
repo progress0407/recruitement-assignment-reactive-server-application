@@ -47,6 +47,7 @@ Query(Read), 테이블을 2개 이상 조회하는 쿼리의 경우 query 모듈
 - Java 11
 - WebFlux
 - PostgresSQL
+- JWT 인증
 - 코루틴
 - 멀티 모듈 (Gradle)
 
