@@ -48,34 +48,4 @@ class UserController(
                     .body("User logged in successfully. See response header")
             }
     }
-
-    @PostMapping("/header")
-    fun header(): Mono<ResponseEntity<String>> {
-
-        val entity = ResponseEntity.ok()
-            .header(AUTHORIZATION, "hello")
-            .body("User logged in successfully. See response header")
-
-        return Mono.just(entity)
-    }
-
-    @GetMapping("/1")
-    fun get1(): Mono<String> {
-
-        log.info { "hello this is 1" }
-
-        Thread.sleep(2L)
-
-        return Mono.just("this is 1")
-    }
-
-    @GetMapping("/2")
-    fun get2(): Mono<String> {
-
-        log.info { "hello this is 2" }
-
-        Thread.sleep(2L)
-
-        return Mono.just("this is 2")
-    }
 }
