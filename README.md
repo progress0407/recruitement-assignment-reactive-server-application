@@ -41,8 +41,10 @@ Query(Read), 그 중에서도 복잡한 쿼리의 경우 query 모듈에 작성�
 - Java 11
 - WebFlux
 - PostgresSQL
-- 멀티 모듈
+- 코루틴
+- 멀티 모듈 (Gradle)
 - 테스트 (통합, 단위)
+
 
 ## 하지 못한 것
 
