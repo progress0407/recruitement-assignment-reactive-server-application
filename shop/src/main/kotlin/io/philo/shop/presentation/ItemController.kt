@@ -50,4 +50,14 @@ class ItemController(private val itemService: ItemService) {
         val (name, price, stockQuantity) = request
         return itemService.update(itemId, name, price, stockQuantity)
     }
+
+    @DeleteMapping("/{itemId}")
+    fun delete(
+        @PathVariable itemId: Long,
+        @RequestHeader("userId") userId: String
+    ): Mono<Void> {
+
+        return itemService.delete(itemId)
+    }
+
 }

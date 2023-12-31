@@ -1,6 +1,7 @@
 package io.philo.user.application
 
 import io.philo.auth.JwtManager
+import io.philo.exception.constant.EntityNotFoundException
 import io.philo.exception.constant.UnauthorizedException
 import io.philo.user.entity.User
 import io.philo.user.repository.UserRepository
@@ -24,14 +25,10 @@ class UserService(
         return repository.save(user).mapNotNull { it.id }
     }
 
-    /*
-    todo EntityNotFoundException 예외처리기 달기! 500 -> 401
-     */
     fun login(email: String, inputPassword: String): Mono<String> {
 
         return repository.findByEmail(email)
-            .doOnNext { log.info { "user: $it" } }
-//            .switchIfEmpty(Mono.error(EntityNotFoundException(email)))
+            .switchIfEmpty(deferredError(email))
             .map { user ->
                 validateCredential(inputPassword, user)
                 val subject = user.id.toString()
@@ -48,5 +45,10 @@ class UserService(
 
     private fun isCorrectCredential(inputPassword: String, user: User): Boolean {
         return user.isSamePassword(inputPassword)
+    }
+
+    private fun deferredError(info: String): Mono<User> {
+        val exception = EntityNotFoundException(info)
+        return Mono.defer { Mono.error(exception) }
     }
 }
