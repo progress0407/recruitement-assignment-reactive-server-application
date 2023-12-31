@@ -58,6 +58,8 @@ Query(Read), 테이블을 2개 이상 조회하는 쿼리의 경우 query 모듈
 - 테스트 (통합, 단위)
 - 예외 핸들링 (`ErrorWebExceptionHandler`)
 - 인증 필터 (`WebFilter`)
+- 예외 상속 구조 (`CustomException`)
+- 공통 엔티티 추출 (`BaseEntity`)
 
 
 ## ♠ 하지 못한 것
