@@ -15,13 +15,6 @@ configurations {
     }
 }
 
-
-/*
-springBoot {
-    mainClassName = 'io.philo.ReactiveServerApplication'
-}
-*/
-
 allprojects {
 
     apply plugin: 'java'

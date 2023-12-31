@@ -4,6 +4,7 @@ import io.philo.exception.constant.UnauthorizedException
 import mu.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.http.HttpMethod.*
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
@@ -16,15 +17,21 @@ class AuthFilter(private val jwtManager: JwtManager) : WebFilter {
 
     private val log = KotlinLogging.logger { }
 
+    private val requiredCredentials = listOf(
+        EndPoint("/items", POST),
+        EndPoint("/items", PUT),
+        EndPoint("/items", DELETE)
+    )
+
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
 
         val request: ServerHttpRequest = exchange.request
-        val method = request.method
+        val method = request.method!!
         val path = request.path.toString()
 
         log.info { "it = $path" }
 
-        if (isRequiredCredentials(method, path)) { // List로 뺄 것
+        if (isRequiredCredentials(path, method)) { // List로 뺄 것
             val accessToken = request.extractOrThrowToken()
             if (jwtManager.isValidToken(accessToken).not()) {
                 throw UnauthorizedException("인증 토큰이 유효하지 않습니다.")
@@ -47,7 +54,12 @@ class AuthFilter(private val jwtManager: JwtManager) : WebFilter {
         }
 
 
-    private fun isRequiredCredentials(method: HttpMethod?, path: String) = method == HttpMethod.POST && path == "/items"
+    private fun isRequiredCredentials(path: String, method: HttpMethod): Boolean {
+
+        return requiredCredentials.any { path.contains(it.path)  && method == it.method  }
+    }
+
+    data class EndPoint(val path: String, val method: HttpMethod)
 
     private fun ServerHttpRequest.extractOrThrowToken(): String {
 
