@@ -1,10 +1,9 @@
 package io.philo.user.entity
 
+import io.philo.entity.BaseEntity
 import io.philo.support.PasswordEncoder
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.relational.core.mapping.Table
-import java.time.LocalDateTime
 
 @Table("users")
 class User private constructor(
@@ -12,11 +11,8 @@ class User private constructor(
     @Id var id: Long? = null,
     var email: String = "",
     val name: String,
-    var password: String = "", // encoded Password
-) {
-
-    var createdAt: LocalDateTime = LocalDateTime.now()
-    @LastModifiedDate lateinit var lastModifiedAt: LocalDateTime
+    var password: String = "" // encoded Password
+): BaseEntity() {
 
     companion object {}
 

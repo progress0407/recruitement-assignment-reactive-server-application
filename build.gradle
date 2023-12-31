@@ -126,7 +126,4 @@ project(':shop') {
 }
 
 project(':common') {
-    dependencies {
-
-    }
 }

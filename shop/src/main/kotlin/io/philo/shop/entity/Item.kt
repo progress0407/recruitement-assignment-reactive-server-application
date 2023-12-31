@@ -1,8 +1,7 @@
 package io.philo.shop.entity
 
+import io.philo.entity.BaseEntity
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.LocalDateTime
 
 class Item private constructor(
 
@@ -12,9 +11,7 @@ class Item private constructor(
     var price: Int = 0,
     var stockQuantity: Int,
     var userId: Long,
-) {
-    var createdAt: LocalDateTime = LocalDateTime.now()
-    @LastModifiedDate  lateinit var lastModifiedAt: LocalDateTime
+): BaseEntity() {
 
     companion object {}
 
