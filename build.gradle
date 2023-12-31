@@ -108,10 +108,14 @@ dependencies {
     implementation project(":user")
     implementation project(":shop")
     implementation project(":common")
+}
 
-    testImplementation project(":user")
-    testImplementation project(":shop")
-    testImplementation project(":common")
+project(':query') {
+    dependencies {
+        implementation project(":user")
+        implementation project(":shop")
+        implementation project(":common")
+    }
 }
 
 project(':user') {

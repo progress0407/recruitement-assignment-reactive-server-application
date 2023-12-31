@@ -1,4 +1,5 @@
 rootProject.name = 'reactive-server-app'
 include 'user',
         'shop',
-        'common'
+        'common',
+        'query'
