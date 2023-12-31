@@ -25,6 +25,17 @@ class ItemService(private val itemRepository: ItemRepository) {
         return savedId
     }
 
+    @Transactional
+    fun update(id: Long, name: String, price: Int, stockQuantity: Int): Mono<Void> {
+
+        val foundItem = itemRepository.findById(id)
+
+        return foundItem.flatMap { item ->
+            item.updateInfo(name, price, stockQuantity)
+            itemRepository.save(item)
+        }.then()
+    }
+
     @Transactional(readOnly = true)
     fun findItems(): Flux<Item> {
 

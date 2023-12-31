@@ -1,10 +1,10 @@
 package io.philo.shop.presentation
 
 import io.philo.dto.ResourceCreateResponse
-import io.philo.exception.constant.EntityNotFoundException
 import io.philo.shop.application.ItemService
 import io.philo.shop.dto.ItemCreateRequest
 import io.philo.shop.dto.ItemListResponse
+import io.philo.shop.dto.ItemUpdateRequest
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.bind.annotation.*
@@ -24,7 +24,7 @@ class ItemController(private val itemService: ItemService) {
     @ResponseStatus(CREATED)
     fun add(
         @RequestBody request: ItemCreateRequest,
-        @RequestHeader("userId") userId: String
+        @RequestHeader("userId") userId: String,
     ): Mono<ResourceCreateResponse> {
 
         val (name, price, stockQuantity) = request
@@ -40,11 +40,14 @@ class ItemController(private val itemService: ItemService) {
         return responses
     }
 
-    @GetMapping("/test")
-    fun test(): Flux<Unit> {
+    @PutMapping("/{itemId}")
+    fun update(
+        @PathVariable itemId: Long,
+        @RequestBody request: ItemUpdateRequest,
+        @RequestHeader("userId") userId: String,
+    ): Mono<Void> {
 
-        log.info { "" }
-
-        throw EntityNotFoundException()
+        val (name, price, stockQuantity) = request
+        return itemService.update(itemId, name, price, stockQuantity)
     }
 }
