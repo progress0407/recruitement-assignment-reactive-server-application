@@ -40,7 +40,6 @@ class UserController(
     fun login(@RequestBody request: UserLoginRequest): Mono<ResponseEntity<String>> {
 
         return service.login(request.id, request.password)
-            .doOnNext { log.info { "accessToken: $it" } }
             .map { token: String ->
                 ResponseEntity.ok()
                     .header(AUTHORIZATION, token)

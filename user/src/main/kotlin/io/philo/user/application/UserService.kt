@@ -46,16 +46,19 @@ class UserService(
     }
 
     private fun validateCredential(inputPassword: String, user: User) {
+
         if (isCorrectCredential(inputPassword, user).not()) {
             throw UnauthorizedException("유효한 로그인 정보가 아닙니다.")
         }
     }
 
     private fun isCorrectCredential(inputPassword: String, user: User): Boolean {
+
         return user.isSamePassword(inputPassword)
     }
 
     private fun deferredError(info: String): Mono<User> {
+
         val exception = EntityNotFoundException(info)
         return Mono.defer { Mono.error(exception) }
     }

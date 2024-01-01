@@ -50,6 +50,7 @@ class ItemService(private val repository: ItemRepository) {
     }
 
     private fun deferredError(info: Long): Mono<Item> {
+
         val exception = EntityNotFoundException(info.toString())
         return Mono.defer { Mono.error(exception) }
     }

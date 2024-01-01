@@ -4,5 +4,5 @@ class UserLoginApiDtos
 
 data class UserLoginRequest(val id: String, val password: String) {
 
-    companion object {}
+    companion object
 }

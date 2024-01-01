@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono
 @Component
 class GlobalExceptionHandler : ErrorWebExceptionHandler {
 
-    private val log = KotlinLogging.logger {  }
+    private val log = KotlinLogging.logger { }
 
     private val gson = Gson()
 
@@ -33,10 +33,12 @@ class GlobalExceptionHandler : ErrorWebExceptionHandler {
     }
 
     private fun setJsonContentType(response: ServerHttpResponse) {
+
         response.headers.contentType = MediaType.APPLICATION_JSON
     }
 
     private fun setHttpStatusCode(ex: Throwable, response: ServerHttpResponse) {
+
         if (ex is CustomException) {
             response.statusCode = ex.httpStatus
         } else {
@@ -48,6 +50,7 @@ class GlobalExceptionHandler : ErrorWebExceptionHandler {
         ex: Throwable,
         response: ServerHttpResponse,
     ): Mono<DataBuffer> {
+
         val responseBody = ErrorResponse("${ex.message}")
         val responseJsonString = gson.toJson(responseBody)
         val buffer = convertDataBuffer(response, responseJsonString)
@@ -55,10 +58,10 @@ class GlobalExceptionHandler : ErrorWebExceptionHandler {
         return mono
     }
 
-    private fun convertDataBuffer(
-        response: ServerHttpResponse,
-        responseJsonString: String,
-    ) = response.bufferFactory().wrap(responseJsonString.toByteArray(Charsets.UTF_8))
+    private fun convertDataBuffer(response: ServerHttpResponse, string: String): DataBuffer {
+
+        return response.bufferFactory().wrap(string.toByteArray(Charsets.UTF_8))
+    }
 }
 
 data class ErrorResponse(private val errorMessage: String)
